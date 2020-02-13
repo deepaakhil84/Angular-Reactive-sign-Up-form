@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //  1. import Building blocks
-import { FormGroup, FormControl } from '@angular/forms'
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms'
 
 import { Customer } from './customer';
 
@@ -15,28 +15,35 @@ export class CustomerComponent implements OnInit {
   //3.data Model
   customer = new Customer();
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    //4.create and intialize the form group property and add FormControl to each property
-    //5.Reactive Form Module into the app module 6.Update the template
-
-    this.customerForm = new FormGroup({
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      email: new FormControl(),
-      sendCatalog: new FormControl(true)
-
-    });
-
+    this.customerForm = this.fb.group({
+      firstName: '',
+      lastName: '',
+      email: '',
+      sendCatalog: true
+    })
   }
+  //4.create and intialize the form group property and add FormControl to each property
+  //5.Reactive Form Module into the app module 6.Update the template
+  //  rewrite the code using form builder inside ngOnInit
+  //   this.customerForm = new FormGroup({
+  //     firstName: new FormControl(),
+  //     lastName: new FormControl(),
+  //     email: new FormControl(),
+  //     sendCatalog: new FormControl(true)
+
+  //   });
+
+  // }
   //function for intialize value in the form
 
   populatedTestData(): void {
-    this.customerForm.setValue({
+    this.customerForm.patchValue({
       firstName: 'jack',
       lastName: 'Harkness',
-      email: 'jack@gmail.com',
+
       sendCatalog: false
     })
   }
