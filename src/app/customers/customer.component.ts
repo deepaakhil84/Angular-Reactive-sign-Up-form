@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 //  1. import Building blocks
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms'
+import { FormGroup, FormControl, FormBuilder, Validator, Validators } from '@angular/forms'
 
 import { Customer } from './customer';
 
@@ -19,9 +19,10 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit() {
     this.customerForm = this.fb.group({
-      firstName: '',
-      lastName: '',
-      email: '',
+      //built in validation
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      email: ['', [Validators.required, Validators.email]],
       sendCatalog: true
     })
   }
