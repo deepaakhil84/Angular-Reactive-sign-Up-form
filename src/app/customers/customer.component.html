@@ -149,6 +149,33 @@
         </div>
       </div>
 
+      <!-- customer rating -->
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="firstName"
+          > Rating</label
+        >
+        <div class="col-md-8">
+          <input
+            class="form-control"
+            id="rating"
+            type="number"
+            formControlName="rating"
+          />
+          <div
+            *ngIf="
+              customerForm.get('rating').invalid &&
+              (customerForm.get('rating').dirty ||
+                customerForm.get('rating').touched)
+            "
+            class="alert alert-danger"
+          >
+            <span *ngIf="customerForm.get('rating').errors?.range">
+              Please reate your experience from 1 to 5.
+            </span>
+                      </div>
+        </div>
+      </div>
+
       <!-- send catelog -->
       <div class="form-group row mb-2">
         <div class="col-md-8">

@@ -1,8 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 //  1. import Building blocks
-import { FormGroup, FormControl, FormBuilder, Validator, Validators } from '@angular/forms'
-
+import { FormGroup, FormControl, FormBuilder, Validator, Validators, AbstractControl } from '@angular/forms'
 import { Customer } from './customer';
+
+//custom validation function for rating
+
+function ratingRange(c: AbstractControl): { [key: string]: boolean } | null {
+  if (c.value !== null && (isNaN(c.value) || c.value < 1 || c.value > 5)) {
+    return { 'range': true };
+  }
+  return null
+}
+
+
 
 @Component({
   selector: 'app-customer',
@@ -25,6 +35,8 @@ export class CustomerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: '',
       notification: 'email',
+      //custom validation
+      rating: [null, ratingRange],
       sendCatalog: true
     })
   }
